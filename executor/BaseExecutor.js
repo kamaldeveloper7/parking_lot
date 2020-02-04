@@ -11,14 +11,15 @@ class BaseExecutor {
      *
      * @param inputCommand
      */
-    static validateInput(inputCommand) {
+     validateInput(inputCommand) {
+        let valid = true;
         try {
-            let valid = false;
+
             const inputs = inputCommand.split(" ");
             const mappedCommand = InputCommandMapper.getInputCommandFromMap(inputs[0]);
             switch (inputs.length) {
                 case 1:
-                    if (mappedCommand !== 0)
+                    if (mappedCommand !== 4)
                         valid = false;
                     break;
 
@@ -37,8 +38,9 @@ class BaseExecutor {
         } catch (e) {
 
         }
+        return valid;
     }
 }
 
-module.exports = new BaseExecutor();
+module.exports = BaseExecutor;
 
