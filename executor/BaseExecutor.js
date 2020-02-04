@@ -5,10 +5,8 @@ const InputCommandMapper = require('../helpers/InputCommandMapper');
  */
 class BaseExecutor {
 
-    async execute() {}
-
     /**
-     *
+     * function to validate input
      * @param inputCommand
      */
      validateInput(inputCommand) {

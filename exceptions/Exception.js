@@ -1,5 +1,5 @@
 /**
- *
+ * Exception class for error handling
  */
 class Exception {
 
@@ -19,7 +19,7 @@ class Exception {
     }
 
     /**
-     *
+     * function to set message
      * @param message
      */
     setMessage(message) {
@@ -27,7 +27,7 @@ class Exception {
     }
 
     /**
-     *
+     *  function to set errorCode
      * @param errorCode
      */
     setErrorCode(errorCode) {
@@ -35,7 +35,7 @@ class Exception {
     }
 
     /**
-     *
+     * function to set optional parameter
      * @param optional
      */
     setOptionalParameter(optional) {
@@ -43,7 +43,7 @@ class Exception {
     }
 
     /**
-     *
+     * function to get error message
      * @returns {undefined}
      */
     getMessage() {
@@ -51,7 +51,7 @@ class Exception {
     }
 
     /**
-     *
+     * function to get error code
      * @returns {undefined}
      */
     getErrorCode() {
@@ -59,7 +59,7 @@ class Exception {
     }
 
     /**
-     *
+     *  function to get optional paramters
      * @returns {{}|*}
      */
     getOptionalParameter() {

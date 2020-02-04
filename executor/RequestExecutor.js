@@ -11,7 +11,7 @@ class RequestExecutor extends BaseExecutor {
     }
 
     /**
-     *
+     * function to execute input commands
      * @param command
      * @returns {Promise<void>}
      */

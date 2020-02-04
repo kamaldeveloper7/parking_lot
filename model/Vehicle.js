@@ -1,5 +1,5 @@
 /**
- *
+ * Base Class Vehicle
  */
 class Vehicle {
 
@@ -14,7 +14,7 @@ class Vehicle {
     }
 
     /**
-     *
+     * function to get registration no
      * @returns {*}
      */
     getRegistrationNo() {
@@ -22,7 +22,7 @@ class Vehicle {
     }
 
     /**
-     *
+     * function to set registration no
      * @param registrationNo
      */
     setRegistrationNo(registrationNo) {
@@ -30,7 +30,7 @@ class Vehicle {
     }
 
     /**
-     *
+     * function to get color
      * @returns {*}
      */
     getColor() {
@@ -38,7 +38,7 @@ class Vehicle {
     }
 
     /**
-     *
+     * function to set color
      * @param color
      */
     setColor(color) {

@@ -3,7 +3,7 @@ const NearestParkingUseCase = require('../useCase/NearestParkingUseCase');
 const { status } = require('../constants/constants');
 
 /**
- *
+ * Parking Manager Class to manage parking facilities
  */
 class ParkingManager {
 
@@ -19,7 +19,7 @@ class ParkingManager {
     }
 
     /**
-     *
+     * function to get parking lot status
      * @returns {Array}
      */
     getStatus() {
@@ -33,7 +33,7 @@ class ParkingManager {
     }
 
     /**
-     *
+     * function to create parking lot
      * @param capacity
      * @returns {ParkingManager}
      */
@@ -48,7 +48,7 @@ class ParkingManager {
     }
 
     /**
-     *
+     * function to execute car leaving functionality
      * @param slotNumber
      * @returns {boolean}
      */
@@ -62,21 +62,21 @@ class ParkingManager {
     }
 
     /**
-     *
+     * function to increment slot availability count
      */
     incrementSlotAvailability() {
         this.slotsAvailability++;
     }
 
     /**
-     *
+     * function to decrement slot availability count
      */
     decrementAvailability() {
         this.slotsAvailability--;
     }
 
     /**
-     *
+     * function to get slot availability count
      * @returns {number}
      */
     getAvailabilityCount() {
@@ -84,7 +84,7 @@ class ParkingManager {
     }
 
     /**
-     *
+     * function to park vehicle in slot
      * @param vehicle
      * @returns {*}
      */
@@ -98,14 +98,13 @@ class ParkingManager {
         }
 
         this.vehicleSlots[availableSlot] = vehicle;
-    //    console.log(this.vehicleSlots);
         this.nearestParkingUseCase.removeSlot();
         this.decrementAvailability();
         return availableSlot;
     }
 
     /**
-     *
+     * function to get registrationNo from color
      * @param color
      * @returns {Array}
      */
@@ -121,7 +120,7 @@ class ParkingManager {
     }
 
     /**
-     *
+     * function to get slotList from color
      * @param color
      * @returns {Array}
      */
@@ -136,7 +135,7 @@ class ParkingManager {
     }
 
     /**
-     *
+     * function to get slot no from registration no
      * @param registrationNo
      * @returns {string}
      */
@@ -151,7 +150,7 @@ class ParkingManager {
     }
 
     /**
-     *
+     * function to execute leaving functionality
      * @param slot
      * @returns {boolean}
      */

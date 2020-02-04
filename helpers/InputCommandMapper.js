@@ -1,7 +1,7 @@
 const {commands: commandConstants} = require('../constants/constants');
 
 /**
- *
+ * InputCommandMapper class to map input to command
  */
 class InputCommandMapper  {
 
@@ -13,7 +13,7 @@ class InputCommandMapper  {
     }
 
     /**
-     *
+     * function to get input from map
      * @returns {{[p: string]: number}}
      */
     getInputCommandFromMap(command) {
@@ -21,7 +21,7 @@ class InputCommandMapper  {
     }
 
     /**
-     *
+     * function to return mapped command
      * @returns {{[p: string]: number}}
      * @private
      */

@@ -3,15 +3,21 @@ const ParkingManager = require('../gateways/ParkingManager');
 const Exception = require('../exceptions/Exception');
 const { status: parkingStatus, errorCode: errorMessage } = require('../constants/constants');
 
+/**
+ * Parking service class inherits from base class
+ */
 class ParkingService extends BaseParkingService {
+
+    /**
+     *
+     */
     constructor() {
         super();
-        this.parkingSlots = [];
         this.parkingManager = new ParkingManager()
     }
 
     /**
-     *
+     * function to get current status
      */
     getStatus() {
         try {
@@ -27,7 +33,7 @@ class ParkingService extends BaseParkingService {
     }
 
     /**
-     *
+     * function to park vehicle in the slots
      * @param vehicle
      */
     parkVehicle(vehicle) {
@@ -45,7 +51,7 @@ class ParkingService extends BaseParkingService {
     }
 
     /**
-     *
+     * function to create parking lot with defined slot
      * @param capacity
      */
     createParkingLot(capacity) {
@@ -56,16 +62,10 @@ class ParkingService extends BaseParkingService {
         } catch (e) {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
         }
-        // for(let i=0; i < capacity; i++) {
-        //     let obj = {};
-        //     obj[parseInt(i)] = null;
-        //     this.parkingSlots.push(obj);
-        // }
-        // console.log(this)
     }
 
     /**
-     *
+     * function to get free slot count
      */
     getFreeSlotCount() {
         try {
@@ -75,6 +75,10 @@ class ParkingService extends BaseParkingService {
         }
     }
 
+    /**
+     * function to leave vehicle from slot
+     * @param slot
+     */
     leave(slot) {
         try {
             const result = this.parkingManager.leaveVehicle(slot);
@@ -89,7 +93,7 @@ class ParkingService extends BaseParkingService {
     }
 
     /**
-     *
+     * function to get parked slots from color
      * @param color
      */
     getSlotNoFromColor(color) {
@@ -106,7 +110,7 @@ class ParkingService extends BaseParkingService {
     }
 
     /**
-     *
+     * function to get slots from registrationNo
      * @param registrationNo
      */
     getSlotNoFromRegistration(registrationNo) {

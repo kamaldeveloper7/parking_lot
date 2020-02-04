@@ -1,7 +1,7 @@
 const Vehicle = require('./Vehicle');
 
 /**
- *
+ * Extended class car
  */
 class Car extends  Vehicle {
 

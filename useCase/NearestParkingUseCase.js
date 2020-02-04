@@ -1,5 +1,5 @@
 /**
- *
+ * NearestParking UseCase class to have parking slots strategy which can be different for different classes
  */
 class NearestParkingUseCase {
 
@@ -11,7 +11,7 @@ class NearestParkingUseCase {
     }
 
     /**
-     *
+     * function to add slots
      * @param slot
      */
     addSlot(slot) {
@@ -19,7 +19,7 @@ class NearestParkingUseCase {
     }
 
     /**
-     *
+     * function to get free slots
      * @returns {*}
      */
     getFreeSlot() {
@@ -27,7 +27,7 @@ class NearestParkingUseCase {
     }
 
     /**
-     *
+     * function to remove slot
      * @param slot
      */
     removeSlot(slot) {
