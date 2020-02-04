@@ -6,61 +6,45 @@ const {port, host} = require('./config/configuration.js');
 const RequestExecutor = require('./executor/RequestExecutor');
 
 const inputs = process.argv;
-console.log(inputs[inputs.length-1])
+inputs[inputs.length - 1] = 'true';
 try {
-    switch (inputs[inputs.length-1]) {
-        case 100: {
-            console.log("Input:");
-            while(true) {
-                const promptOption = rl.createInterface({ input: process.stdin, output: process.stdout, terminal: false });
-                console.log(promptOption)
-                if(promptOption === "exit")
-                    break;
-                else {
-                    if(RequestExecutor.validateInput(promptOption)) {
-                        try {
-                            RequestExecutor.execute(promptOption);
-                        } catch (e) {
-                            console.log(e);
-                        }
-
-                    }
-                }
+  if(inputs[inputs.length - 1] === 'true') {
+    interact();
+  }
+  else {
+    fs.readFile(inputs[2], 'utf-8', function (err, data) {
+      const commands = data.split("\n");
+        for (let i = 0; i < commands.length; i++) {
+          if (RequestExecutor.validateInput(commands[i])) {
+            try {
+              RequestExecutor.execute(commands[i]);
+            } catch (e) {
+              console.log(e);
             }
-            break;
+          }
         }
-        case 1: {
-            console.log('aaaaaa')
-            fs.readFile(inputs[2], 'utf-8', function (err, data) {
-                const commands = data.split("\n");
-                for (let i = 0; i < commands.length; i++) {
-                    if (RequestExecutor.validateInput(commands[i])) {
-                        try {
-                            RequestExecutor.execute(commands[i]);
-                        } catch (e) {
-                            console.log(e);
-                        }
-                    }
-                }
-            });
-        }
-        default:
-
-                const promptOption = rl.createInterface({ input: process.stdin, output: process.stdout, terminal: false });
-                promptOption.question("Input: ", function (input) {
-                    if(RequestExecutor.validateInput(input)) {
-                        RequestExecutor.execute(input);
-                    }
-
-                });
-
-
-
-    }
+    });
+  }
 } catch (e) {
     console.log(e);
 }
 
+function  interact() {
+    const promptOption = rl.createInterface({ input: process.stdin, output: process.stdout, terminal: false });
+    promptOption.question("Input: ", function (input) {
+        if(input === "exit"){
+            console.log('exiting');
+            process.exit(0);
+        }
+        else {
+            if (RequestExecutor.validateInput(input)) {
+                RequestExecutor.execute(input);
+            }
+        }
+        interact();
+    });
+
+}
 
 try {
     http.createServer(function (req, res) {

@@ -38,7 +38,7 @@ class ParkingService extends BaseParkingService {
             else if (value === parkingStatus.NOT_AVAILABLE)
                 console.log('Sorry, parking lot is full');
             else
-                console.log(`Allocated slot number: ${value}`)
+                console.log(`Allocated slot number: ${value}`);
         } catch (e) {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
         }
@@ -79,7 +79,7 @@ class ParkingService extends BaseParkingService {
         try {
             const result = this.parkingManager.leaveVehicle(slot);
             if(result) {
-                console.log(`Slot number  ${slot}  is free`)
+                console.log(`Slot number  ${slot}  is free`);
             } else {
                 console.log('Slot number is Empty Already.');
             }
@@ -98,7 +98,7 @@ class ParkingService extends BaseParkingService {
             if(slots.length === 0)
                 console.log('Not Found');
             else {
-                console.log(slots.join("\n"))
+                console.log(slots.join("\n"));
             }
         } catch(e) {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
@@ -111,8 +111,7 @@ class ParkingService extends BaseParkingService {
      */
     getSlotNoFromRegistration(registrationNo) {
         try {
-            const result = this.parkingManager.getRegistrationNoFromColor(registrationNo);
-            return result;
+            return this.parkingManager.getSlotNoFromRegistration(registrationNo);
         } catch (e) {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
         }

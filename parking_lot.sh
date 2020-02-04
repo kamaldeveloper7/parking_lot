@@ -5,7 +5,7 @@ npm --prefix $parent_path install
 #npm --prefix $parent_path test
 if [ "$#" -ne 1 ];
 then
-	node $parent_path/server.js 100
+	node $parent_path/server.js true
 else
 	node $parent_path/server.js $1
 fi

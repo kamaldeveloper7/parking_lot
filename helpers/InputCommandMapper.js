@@ -1,7 +1,13 @@
 const {commands: commandConstants} = require('../constants/constants');
 
+/**
+ *
+ */
 class InputCommandMapper  {
 
+    /**
+     *
+     */
     constructor() {
         this.commandMap = this._commandMapper()
     }

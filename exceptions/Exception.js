@@ -1,5 +1,14 @@
+/**
+ *
+ */
 class Exception {
 
+    /**
+     *
+     * @param errorCode
+     * @param message
+     * @param optional
+     */
     constructor(errorCode, message, optional = {}) {
         this.message = undefined;
         this.errorCode = undefined;

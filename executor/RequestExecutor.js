@@ -5,6 +5,11 @@ const Car = require('../model/Car');
 
 class RequestExecutor extends BaseExecutor {
 
+    constructor() {
+        super();
+        this.parkingService = new ParkingService();
+    }
+
     /**
      *
      * @param command
@@ -14,22 +19,22 @@ class RequestExecutor extends BaseExecutor {
         const commandInput = command.split(" ");
         switch(commandInput[0]) {
             case commandConstants.STATUS :
-                ParkingService.getStatus();
+                this.parkingService.getStatus();
                 break;
             case commandConstants.REG_NUMBER_FOR_CARS_WITH_COLOR:
-                ParkingService.getSlotNoFromRegistration(commandInput[1]);
+                this.parkingService.getSlotNoFromRegistration(commandInput[1]);
                 break;
             case commandConstants.SLOTS_NUMBER_FOR_CARS_WITH_COLOR:
-                ParkingService.getSlotNoFromColor(commandInput[1]);
+                this.parkingService.getSlotNoFromColor(commandInput[1]);
                 break;
             case commandConstants.CREATE_PARKING_LOT:
-                ParkingService.createParkingLot(commandInput[1]);
+                this.parkingService.createParkingLot(commandInput[1]);
                 break;
             case commandConstants.LEAVE:
-                ParkingService.leave(commandInput[1]);
+                this.parkingService.leave(commandInput[1]);
                 break;
             case commandConstants.PARK:
-                ParkingService.parkVehicle(new Car(commandInput[1], commandInput[2]));
+                this.parkingService.parkVehicle(new Car(commandInput[1], commandInput[2]));
                 break;
             default:
                 console.log("wrong input operation");

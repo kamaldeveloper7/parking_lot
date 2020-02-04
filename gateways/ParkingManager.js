@@ -1,9 +1,16 @@
 const vehicle = require('../model/Vehicle');
 const NearestParkingUseCase = require('../useCase/NearestParkingUseCase');
-const { errorCode, status } = require('../constants/constants');
+const { status } = require('../constants/constants');
 
+/**
+ *
+ */
 class ParkingManager {
 
+    /**
+     *
+     * @param capacity
+     */
     constructor(capacity) {
         this.capacity = capacity;
         this.vehicleSlots = {};
@@ -17,21 +24,26 @@ class ParkingManager {
      */
     getStatus() {
         const statusList = [];
-        for(let i in this.capacity) {
-            let parkedVehicle = this.vehicleSlots[i];
-            if(parkedVehicle.prototype.isPresent()) {
-                statusList.push(`i  "\t\t"  ${parkedVehicle.get().getRegistrationNo()}  "\t\t"  ${parkedVehicle.get().getColor()}`);
+        for(let i=0; i < this.capacity; i++) {
+            if(Object.entries(this.vehicleSlots[i]).length > 0) {
+                statusList.push(`i  "\t\t"  ${this.vehicleSlots[i].getRegistrationNo()}  "\t\t"  ${this.vehicleSlots[i].getColor()}`);
             }
         }
         return statusList;
     }
 
+    /**
+     *
+     * @param capacity
+     * @returns {ParkingManager}
+     */
     createParkingLot(capacity) {
         this.slotsAvailability = capacity;
         for(let i=0; i < capacity; i++) {
             this.vehicleSlots[i]= {};
             this.nearestParkingUseCase.addSlot(i);
         }
+        this.capacity = capacity;
         return this;
     }
 
@@ -81,9 +93,6 @@ class ParkingManager {
             return status.NOT_AVAILABLE;
         }
         const availableSlot = this.nearestParkingUseCase.getFreeSlot();
-//        console.log(this.vehicleSlots);
-  //      console.log(vehicle);
-console.log(Object.values(this.vehicleSlots).indexOf(vehicle));
         if(Object.values(this.vehicleSlots).indexOf(vehicle) > -1) {
             return status.PARKING_ALREADY_EXIST;
         }
@@ -116,12 +125,11 @@ console.log(Object.values(this.vehicleSlots).indexOf(vehicle));
      * @param color
      * @returns {Array}
      */
-    getSlotNumbersFromColor(color) {
+    getSlotNoFromColor(color) {
         const slotList = [];
-        for(let i in this.capacity) {
-            let parkedVehicle = this.vehicleSlots[i];
-            if(parkedVehicle && parkedVehicle.getColor() === color) {
-                slotList.push(parkedVehicle);
+        for(let i=0; i < this.capacity; i++) {
+            if(Object.entries(this.vehicleSlots[i]).length && this.vehicleSlots[i].getColor() === color) {
+                slotList.push(this.vehicleSlots[i].getRegistrationNo());
             }
         }
         return slotList;
@@ -132,11 +140,10 @@ console.log(Object.values(this.vehicleSlots).indexOf(vehicle));
      * @param registrationNo
      * @returns {string}
      */
-    getSlotNoFromRegistrationNo(registrationNo) {
-        let result = '';
-        for(let i in this.capacity) {
-            let parkedVehicle = this.vehicleSlots[i];
-            if(parkedVehicle && registrationNo === parkedVehicle.getRegistrationNo()) {
+    getSlotNoFromRegistration(registrationNo) {
+        let result = undefined;
+        for(let i=0; i < this.capacity; i++) {
+            if(Object.entries(this.vehicleSlots[i]).length && registrationNo === this.vehicleSlots[i].getRegistrationNo()) {
                 result = i;
             }
         }
