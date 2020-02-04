@@ -1,10 +1,13 @@
-const BaseParkingService = require('BaseParkingService');
-const { status: parkingStatus, errorCode: errorMessage } = require('../constants');
+const BaseParkingService = require('./BaseParkingService');
+const ParkingManager = require('../gateways/ParkingManager');
+const Exception = require('../exceptions/Exception');
+const { status: parkingStatus, errorCode: errorMessage } = require('../constants/constants');
 
 class ParkingService extends BaseParkingService {
     constructor() {
         super();
         this.parkingSlots = [];
+        this.parkingManager = new ParkingManager()
     }
 
     /**
@@ -12,8 +15,8 @@ class ParkingService extends BaseParkingService {
      */
     getStatus() {
         try {
-            const status = ParkingManager.getStatus();
-            if(status.length === 0) {
+            const values = this.parkingManager.getStatus();
+            if(values.length === 0) {
                 console.log("Sorry, parking lot is empty.");
             } else {
                 console.log(values.join("\n"));
@@ -29,11 +32,11 @@ class ParkingService extends BaseParkingService {
      */
     parkVehicle(vehicle) {
         try {
-            const value = ParkingManager.park(vehicle);
+            const value = this.parkingManager.parkVehicle(vehicle);
             if(value === parkingStatus.VEHICLE_ALREADY_EXIST)
                 console.log('Sorry, vehicle is already parked.');
             else if (value === parkingStatus.NOT_AVAILABLE)
-                console.log('Sorry, parking lot is full')
+                console.log('Sorry, parking lot is full');
             else
                 console.log(`Allocated slot number: ${value}`)
         } catch (e) {
@@ -46,11 +49,19 @@ class ParkingService extends BaseParkingService {
      * @param capacity
      */
     createParkingLot(capacity) {
-        for(let i=0; i< capacity; i++) {
-            let obj = {};
-            obj[parseInt(i)] = null;
-            this.parkingSlots.push(obj);
+        try {
+            const result = this.parkingManager.createParkingLot(capacity);
+            console.log(`Created parking lot with ${capacity} slots`);
+            return result;
+        } catch (e) {
+            throw new Exception(errorMessage.PROCESSING_ERROR, e);
         }
+        // for(let i=0; i < capacity; i++) {
+        //     let obj = {};
+        //     obj[parseInt(i)] = null;
+        //     this.parkingSlots.push(obj);
+        // }
+        // console.log(this)
     }
 
     /**
@@ -58,7 +69,7 @@ class ParkingService extends BaseParkingService {
      */
     getFreeSlotCount() {
         try {
-            const result = ParkingManager.getFreeSlotCount();
+            const result = this.parkingManager.getFreeSlotCount();
         } catch (e) {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
         }
@@ -66,7 +77,7 @@ class ParkingService extends BaseParkingService {
 
     leave(slot) {
         try {
-            const result = ParkingManager.leave(slot);
+            const result = this.parkingManager.leaveVehicle(slot);
             if(result) {
                 console.log(`Slot number  ${slot}  is free`)
             } else {
@@ -83,7 +94,7 @@ class ParkingService extends BaseParkingService {
      */
     getSlotNoFromColor(color) {
         try {
-            const slots = ParkingManager.getSlotNoFromColor(color);
+            const slots = this.parkingManager.getSlotNoFromColor(color);
             if(slots.length === 0)
                 console.log('Not Found');
             else {
@@ -100,7 +111,7 @@ class ParkingService extends BaseParkingService {
      */
     getSlotNoFromRegistration(registrationNo) {
         try {
-            const result = ParkingManager.getRegistrationNoFromColor(registrationNo);
+            const result = this.parkingManager.getRegistrationNoFromColor(registrationNo);
             return result;
         } catch (e) {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
@@ -108,4 +119,4 @@ class ParkingService extends BaseParkingService {
     }
 }
 
-module.exports = new ParkingService();
+module.exports = ParkingService;

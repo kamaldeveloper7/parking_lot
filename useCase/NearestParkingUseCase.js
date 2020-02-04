@@ -1,4 +1,4 @@
-class NearestParkingUseCase {
+module.exports = class NearestParkingUseCase {
 
     constructor() {
         this.freeSlots = [];
@@ -8,11 +8,11 @@ class NearestParkingUseCase {
         this.freeSlots.push(slot);
     }
 
-    getSlot() {
+    getFreeSlot() {
         return this.freeSlots[0];
     }
 
     removeSlot(slot) {
-        this.freeSlots.remove(slot);
+        this.freeSlots.splice(slot,1);
     }
-}
+};

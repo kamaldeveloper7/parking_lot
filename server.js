@@ -3,17 +3,18 @@ const fs = require('fs');
 const rl = require("readline");
 
 const {port, host} = require('./config/configuration.js');
-const RequestExecutor = require('Executor/RequestExecutor');
+const RequestExecutor = require('./executor/RequestExecutor');
 
 const inputs = process.argv;
-
+console.log(inputs[inputs.length-1])
 try {
-    switch (inputs.length) {
-        case 0: {
+    switch (inputs[inputs.length-1]) {
+        case 100: {
             console.log("Input:");
             while(true) {
                 const promptOption = rl.createInterface({ input: process.stdin, output: process.stdout, terminal: false });
-                if(promptOption.toLowerCase() === "exit")
+                console.log(promptOption)
+                if(promptOption === "exit")
                     break;
                 else {
                     if(RequestExecutor.validateInput(promptOption)) {
@@ -28,11 +29,12 @@ try {
             }
             break;
         }
-        case 1:
-            fs.readFile(inputs[2], 'utf-8', function(err, data) {
+        case 1: {
+            console.log('aaaaaa')
+            fs.readFile(inputs[2], 'utf-8', function (err, data) {
                 const commands = data.split("\n");
-                for(let i =0 ; i < commands.length; i++){
-                    if(RequestExecutor.validateInput(commands[i])) {
+                for (let i = 0; i < commands.length; i++) {
+                    if (RequestExecutor.validateInput(commands[i])) {
                         try {
                             RequestExecutor.execute(commands[i]);
                         } catch (e) {
@@ -41,6 +43,18 @@ try {
                     }
                 }
             });
+        }
+        default:
+
+                const promptOption = rl.createInterface({ input: process.stdin, output: process.stdout, terminal: false });
+                promptOption.question("Input: ", function (input) {
+                    if(RequestExecutor.validateInput(input)) {
+                        RequestExecutor.execute(input);
+                    }
+
+                });
+
+
 
     }
 } catch (e) {
