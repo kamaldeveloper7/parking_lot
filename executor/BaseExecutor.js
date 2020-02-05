@@ -17,7 +17,7 @@ class BaseExecutor {
             const mappedCommand = InputCommandMapper.getInputCommandFromMap(inputs[0]);
             switch (inputs.length) {
                 case 1:
-                    if (mappedCommand !== 4)
+                    if (mappedCommand !== 0)
                         valid = false;
                     break;
 

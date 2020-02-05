@@ -5,19 +5,11 @@ const fs = require('fs');
 const ParkingService = require('../service/ParkingService');
 const Car = require('../model/Car');
 
-describe('server', function () {
-    before(function () {
-        server.listen(8080);
-    });
 
-    after(function () {
-        server.close();
-    });
-});
 
 describe('File reading test', function() {
     it('Read test input', function(done) {
-        fs.readFile('./demo.txt', 'utf-8', function(err, data) {
+        fs.readFile('./file_input.txt', 'utf-8', function(err, data) {
             if (err) {
                 throw "Unable to read file";
             }
@@ -51,12 +43,11 @@ describe("Testing Functions", function() {
 
         const ParkingServiceInstance = new ParkingService();
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-1234", "White"));
-        assert.equal(spy.calledWith('Allocated slot number: Sorry, Car Parking Does not Exist'), true);
+        assert.equal(spy.calledWith('Sorry, Car Parking Does not Exist'), true);
         ParkingServiceInstance.createParkingLot(6);
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-1234", "White"));
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
         ParkingServiceInstance.parkVehicle(new Car("KA-01-BB-0001", "Black"));
-
         const parkingManager = ParkingServiceInstance.parkingManager;
         assert.equal(parkingManager.slotsAvailability,3);
         done();
@@ -118,10 +109,10 @@ describe("Testing Functions", function() {
         ParkingServiceInstance.createParkingLot(6);
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-1234", "White"));
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
-        ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
+        ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9990", "White"));
 
-        const parkingSlot = ParkingServiceInstance.getSlotNoFromRegistration("KA-01-HH-9999");
-        assert.equal(parkingSlot, 2);
+        ParkingServiceInstance.getSlotNoFromRegistration("KA-01-HH-9999");
+        assert.equal(spy.calledWith(2), true);
         done();
     });
 
@@ -133,8 +124,9 @@ describe("Testing Functions", function() {
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
 
-        const parkingSlot = ParkingServiceInstance.getSlotNoFromColor("White");
-        assert.equal(parkingSlot, 2);
+        ParkingServiceInstance.getSlotNoFromColor("White");
+        //console.log()
+        assert.equal(spy.calledWith('1,2'), true);
         done();
     });
 

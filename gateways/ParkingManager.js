@@ -26,9 +26,11 @@ class ParkingManager {
         const statusList = [];
         for(let i=0; i < this.capacity; i++) {
             if(Object.entries(this.vehicleSlots[i]).length > 0) {
-                statusList.push(`i  "\t\t"  ${this.vehicleSlots[i].getRegistrationNo()}  "\t\t"  ${this.vehicleSlots[i].getColor()}`);
+                statusList.push(`${i+1}  \t\t ${this.vehicleSlots[i].getRegistrationNo()}  \t\t  ${this.vehicleSlots[i].getColor()}`);
             }
         }
+        if(statusList.length)
+            statusList.unshift(`Slot No.\t Registration No  \t\t  Color`)
         return statusList;
     }
 
@@ -93,8 +95,10 @@ class ParkingManager {
             return status.NOT_AVAILABLE;
         }
         const availableSlot = this.nearestParkingUseCase.getFreeSlot();
-        if(Object.values(this.vehicleSlots).indexOf(vehicle) > -1) {
-            return status.PARKING_ALREADY_EXIST;
+        for(let i=0; i < this.capacity; i++) {
+            if(Object.entries(this.vehicleSlots[i]).length && this.vehicleSlots[i].getColor() === vehicle.getColor() && this.vehicleSlots[i].getRegistrationNo() === vehicle.getRegistrationNo()) {
+                return status.VEHICLE_ALREADY_EXIST;
+            }
         }
 
         this.vehicleSlots[availableSlot] = vehicle;
@@ -110,10 +114,9 @@ class ParkingManager {
      */
     getRegNumberForColor(color) {
         const vehicleList = [];
-        for(let i in this.capacity) {
-            let parkedVehicle = this.vehicleSlots[i];
-            if(parkedVehicle && color === parkedVehicle.getColor()) {
-                vehicleList.push(parkedVehicle.get().getRegistrationNo());
+        for(let i=0; i < this.capacity; i++) {
+            if(Object.entries(this.vehicleSlots[i]).length && this.vehicleSlots[i].getColor() === color) {
+                vehicleList.push(this.vehicleSlots[i].getRegistrationNo());
             }
         }
         return vehicleList;
@@ -128,7 +131,7 @@ class ParkingManager {
         const slotList = [];
         for(let i=0; i < this.capacity; i++) {
             if(Object.entries(this.vehicleSlots[i]).length && this.vehicleSlots[i].getColor() === color) {
-                slotList.push(this.vehicleSlots[i].getRegistrationNo());
+                slotList.push(i+1);
             }
         }
         return slotList;
@@ -143,7 +146,7 @@ class ParkingManager {
         let result = undefined;
         for(let i=0; i < this.capacity; i++) {
             if(Object.entries(this.vehicleSlots[i]).length && registrationNo === this.vehicleSlots[i].getRegistrationNo()) {
-                result = i;
+                result = i+1;
             }
         }
         return result;
@@ -155,10 +158,11 @@ class ParkingManager {
      * @returns {boolean}
      */
     leaveVehicle(slot) {
+        slot = slot-1;
         if(Object.keys(this.vehicleSlots[slot]).length===0)
             return false;
         this.incrementSlotAvailability();
-        this.nearestParkingUseCase.addSlot(slot);
+        this.nearestParkingUseCase.addRemoveSlot(slot);
         this.vehicleSlots[slot] = {};
         return true;
     }

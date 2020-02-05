@@ -22,6 +22,9 @@ class RequestExecutor extends BaseExecutor {
                 this.parkingService.getStatus();
                 break;
             case commandConstants.REG_NUMBER_FOR_CARS_WITH_COLOR:
+                this.parkingService.getRegNoFromColor(commandInput[1]);
+                break;
+            case commandConstants.SLOTS_NUMBER_FOR_REG_NUMBER:
                 this.parkingService.getSlotNoFromRegistration(commandInput[1]);
                 break;
             case commandConstants.SLOTS_NUMBER_FOR_CARS_WITH_COLOR:

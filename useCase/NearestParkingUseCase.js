@@ -8,6 +8,7 @@ class NearestParkingUseCase {
      */
     constructor() {
         this.freeSlots = [];
+        this.removeSlots = [];
     }
 
     /**
@@ -19,10 +20,20 @@ class NearestParkingUseCase {
     }
 
     /**
+     * function to add removed Slots
+     * @param slot
+     */
+    addRemoveSlot(slot) {
+        this.removeSlots.push(slot);
+    }
+
+    /**
      * function to get free slots
      * @returns {*}
      */
     getFreeSlot() {
+        if(this.removeSlots.length)
+            return this.removeSlots[0];
         return this.freeSlots[0];
     }
 
@@ -31,6 +42,7 @@ class NearestParkingUseCase {
      * @param slot
      */
     removeSlot(slot) {
+        this.removeSlots.splice(slot,1);
         this.freeSlots.splice(slot,1);
     }
 }

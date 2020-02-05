@@ -9,10 +9,10 @@ module.exports = {
         STATUS: "status"
     },
     status: {
-        AVAILABLE:1,
-        NOT_FOUND: 2,
-        VEHICLE_ALREADY_EXIST: 3,
-        NOT_AVAILABLE: 4
+        AVAILABLE: 'available',
+        NOT_FOUND: 'notFound',
+        VEHICLE_ALREADY_EXIST: 'vehicleAlreadyExists',
+        NOT_AVAILABLE: 'notAvailable'
     },
     errorCode: {
         PARKING_ALREADY_EXIST: "Sorry Parking Already Created, It CAN NOT be again recreated.",

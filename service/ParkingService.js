@@ -38,13 +38,17 @@ class ParkingService extends BaseParkingService {
      */
     parkVehicle(vehicle) {
         try {
-            const value = this.parkingManager.parkVehicle(vehicle);
-            if(value === parkingStatus.VEHICLE_ALREADY_EXIST)
-                console.log('Sorry, vehicle is already parked.');
-            else if (value === parkingStatus.NOT_AVAILABLE)
-                console.log('Sorry, parking lot is full');
-            else
-                console.log(`Allocated slot number: ${value}`);
+            if(this.parkingManager.capacity === undefined) {
+                console.log(errorMessage.PARKING_NOT_EXIST_ERROR);
+            } else {
+                const value = this.parkingManager.parkVehicle(vehicle);
+                if(value === parkingStatus.VEHICLE_ALREADY_EXIST)
+                    console.log('Sorry, vehicle is already parked.');
+                else if (value === parkingStatus.NOT_AVAILABLE)
+                    console.log('Sorry, parking lot is full');
+                else
+                    console.log(`Allocated slot number: ${value+1}`);
+            }
         } catch (e) {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
         }
@@ -102,7 +106,7 @@ class ParkingService extends BaseParkingService {
             if(slots.length === 0)
                 console.log('Not Found');
             else {
-                console.log(slots.join("\n"));
+                console.log(slots.join(","));
             }
         } catch(e) {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
@@ -115,7 +119,29 @@ class ParkingService extends BaseParkingService {
      */
     getSlotNoFromRegistration(registrationNo) {
         try {
-            return this.parkingManager.getSlotNoFromRegistration(registrationNo);
+            const slot =  this.parkingManager.getSlotNoFromRegistration(registrationNo);
+            if(!slot) {
+                console.log('Not Found');
+            } else {
+                console.log(slot);
+            }
+        } catch (e) {
+            throw new Exception(errorMessage.PROCESSING_ERROR, e);
+        }
+    }
+
+    /**
+     * function to get registration no from color
+     * @param color
+     */
+    getRegNoFromColor(color) {
+        try {
+            const registrationNo = this.parkingManager.getRegNumberForColor(color);
+            if(registrationNo.length === 0)
+                console.log('Not Found');
+            else {
+                console.log(registrationNo.join(","));
+            }
         } catch (e) {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
         }

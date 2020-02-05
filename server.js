@@ -6,13 +6,13 @@ const {port, host} = require('./config/configuration.js');
 const RequestExecutor = require('./executor/RequestExecutor');
 
 const inputs = process.argv;
-inputs[inputs.length - 1] = 'true';
+
 try {
   if(inputs[inputs.length - 1] === 'true') {
     interact();
   }
   else {
-    fs.readFile(inputs[2], 'utf-8', function (err, data) {
+    fs.readFile(inputs[inputs.length - 1], 'utf-8', function (err, data) {
       const commands = data.split("\n");
         for (let i = 0; i < commands.length; i++) {
           if (RequestExecutor.validateInput(commands[i])) {
@@ -21,6 +21,8 @@ try {
             } catch (e) {
               console.log(e);
             }
+          } else {
+             // console.log(commands)
           }
         }
     });
