@@ -1,3 +1,9 @@
+commit f0805756f572ba9a4ee5fadabe73ecdb42674053
+Author: Kamal Sehrawat <kamal.sehrawat@wingify.com>
+Date:   Thu Feb 6 06:45:03 2020 +0530
+
+    readme changes and more test cases added
+
 commit 288c51c7c55e74b6f09e157d9e8ce525204cebec
 Author: Kamal Sehrawat <kamal.sehrawat@wingify.com>
 Date:   Wed Feb 5 22:14:26 2020 +0530

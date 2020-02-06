@@ -4,7 +4,6 @@
 
 Solve parking lot problem written in Nodejs. So this need [Nodejs to be installed](https://nodejs.org/dist/v12.14.1/node-v12.14.1.pkg) (version >= 12.14.1).
 
-Source code can find in folder ```parking_lot```:
 
 ## Project Requirements
 
@@ -54,3 +53,8 @@ For print all slot number with specific car color who was parking.
 
 * ```>> slot_number_for_registration_number [car_registration_number]```
 For print slot number with specific car registration color who was parking.
+
+Notes:
+1. Source code can find in folder ```parking_lot```.
+2. git logs are present in ```log.txt``` file.
+3. file_inputs.txt file is used to run automated test cases.
