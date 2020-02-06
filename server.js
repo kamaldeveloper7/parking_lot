@@ -22,7 +22,7 @@ try {
               console.log(e);
             }
           } else {
-             // console.log(commands)
+              console.log("wrong input")
           }
         }
     });
@@ -41,6 +41,8 @@ function  interact() {
         else {
             if (RequestExecutor.validateInput(input)) {
                 RequestExecutor.execute(input);
+            } else {
+                console.log("wrong input")
             }
         }
         interact();
