@@ -4,7 +4,7 @@
   "description": "parking_lot_ticketing_system",
   "main": "server.js",
   "scripts": {
-    "test": "mocha **test/*.js"
+    "test": "nyc --reporter=text mocha **test/*.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,8 @@
     "mocha": "^7.0.1",
     "mocha-sinon": "^2.1.0",
     "sinon": "^8.1.1"
+  },
+  "devDependencies": {
+    "nyc": "^15.0.0"
   }
 }

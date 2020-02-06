@@ -1,12 +1,56 @@
-Problem Statement
-I own a parking lot that can hold up to 'n' cars at any given point in time. Each slot is given a number starting at 1 increasing with increasing distance from the entry point in steps of one. I want to create an automated ticketing system that allows my customers to use my parking lot without human intervention.
-When a car enters my parking lot, I want to have a ticket issued to the driver. The ticket issuing process includes us documenting the registration number (number plate) and the colour of the car and allocating an available parking slot to the car before actually handing over a ticket to the driver (we assume that our customers are nice enough to always park in the slots allocated to them). The customer should be allocated a parking slot which is nearest to the entry. At the exit the customer returns the ticket which then marks the slot they were using as being available.
-Due to government regulation, the system should provide me with the ability to find
-out:
-● Registration numbers of all cars of a particular colour.
-● Slot number in which a car with a given registration number is parked.
-● Slot numbers of all slots where a car of a particular colour is parked.
-We interact with the system via a simple set of commands which produce a specific output. Please take a look at the example below, which includes all the commands you need to support - they're self explanatory. The system should allow input in two ways. Just to clarify, the same codebase should support both modes of input - we don't want two distinct submissions.
-1) It should provide us with an interactive command prompt based shell where commands can be typed in
-2) It should accept a filename as a parameter at the command prompt and read the commands from that file
+# Parking Lot Problem
 
+**author: kamal Sehrawat
+
+Solve parking lot problem written in Nodejs. So this need [Nodejs to be installed](https://nodejs.org/dist/v12.14.1/node-v12.14.1.pkg) (version >= 12.14.1).
+
+Source code can find in folder ```parking_lot```:
+
+## Project Requirements
+
+* Nodejs Version > 12.14.1
+* npm version 6.4.1 
+
+## Setup application
+
+Run bash ```setup``` in ```bin``` directory
+```sh
+parking_lot $ bin/setup
+```
+This command will automatically installed required packages mentioned in ```package.json``` and automatically run unit testing, unit testing commands contained in the file  ```test/testing.js```
+
+This application fully controlled by command. Run bash ```parking_lot``` in bin directory with 2 options:
+
+* The inputs commands are expected and taken from the file specified
+```sh
+parking_lot $ bin/parking_lot [input_filepath]
+```
+* Or start the program in interactive mode.
+```sh
+parking_lot $ bin/parking_lot
+```
+**Command list**
+
+* ```>> create_parking_lot [capacity]```
+Initialization of parking lot with parameters of slot capacity. This command must be run first to initialize the parking lot.
+
+* ```>> park [car_registration_number] [car_color]```
+The parking car in available slot with identity of registration number and color.
+If success, program will print ```Allocated slot number: [nearest_slot_number]```. If failed,
+(parking lot is full, slot already filled) will print ```Sorry, parking lot is full```
+
+* ```>> leave [slot_number]```
+The slot is available again after the car leaves the parking lot (give the entrance ticket) so that the slot can be occupied by the another car will park.
+
+* ```>> status```
+For print parking area status in table format.
+```Slot No.    Registration No     Color```
+
+* ```>> registration_numbers_for_cars_with_colour [car_color]```
+For print all registration car with specific color who was parking.
+
+* ```>> slot_numbers_for_cars_with_colour [car_color]```
+For print all slot number with specific car color who was parking.
+
+* ```>> slot_number_for_registration_number [car_registration_number]```
+For print slot number with specific car registration color who was parking.

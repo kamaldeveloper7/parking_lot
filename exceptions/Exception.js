@@ -59,7 +59,7 @@ class Exception {
     }
 
     /**
-     *  function to get optional paramters
+     *  function to get optional parameters
      * @returns {{}|*}
      */
     getOptionalParameter() {

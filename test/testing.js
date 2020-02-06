@@ -88,7 +88,7 @@ describe("Testing Functions", function() {
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
 
-        assert.equal(spy.calledWith("Slot number is Empty Already."), true);
+        assert.equal(spy.calledWith("Sorry, vehicle is already parked."), true);
         done();
     });
 
@@ -97,10 +97,8 @@ describe("Testing Functions", function() {
         ParkingServiceInstance.createParkingLot(6);
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-1234", "White"));
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
-        ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
-
-        ParkingServiceInstance.getStatus();
-        assert.equal(spy.calledWith("Slot number is Empty Already."), true);
+        ParkingServiceInstance.getFreeSlotCount();
+        assert.equal(spy.calledWith(`4 slots available`), true);
         done();
     });
 
@@ -109,7 +107,6 @@ describe("Testing Functions", function() {
         ParkingServiceInstance.createParkingLot(6);
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-1234", "White"));
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
-        ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9990", "White"));
 
         ParkingServiceInstance.getSlotNoFromRegistration("KA-01-HH-9999");
         assert.equal(spy.calledWith(2), true);
@@ -122,11 +119,20 @@ describe("Testing Functions", function() {
         ParkingServiceInstance.createParkingLot(6);
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-1234", "White"));
         ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
-        ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
 
         ParkingServiceInstance.getSlotNoFromColor("White");
-        //console.log()
         assert.equal(spy.calledWith('1,2'), true);
+        done();
+    });
+
+    it('test get registration no by color', function (done) {
+        const ParkingServiceInstance = new ParkingService();
+        ParkingServiceInstance.createParkingLot(6);
+        ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-1234", "White"));
+        ParkingServiceInstance.parkVehicle(new Car("KA-01-HH-9999", "White"));
+
+        ParkingServiceInstance.getRegNoFromColor("White");
+        assert.equal(spy.calledWith('KA-01-HH-1234,KA-01-HH-9999'), true);
         done();
     });
 

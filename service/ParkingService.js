@@ -73,7 +73,12 @@ class ParkingService extends BaseParkingService {
      */
     getFreeSlotCount() {
         try {
-            const result = this.parkingManager.getFreeSlotCount();
+            const result = this.parkingManager.getAvailabilityCount();
+            if(result > 0) {
+                console.log(`${result} slots available`);
+            } else {
+                console.log('Sorry, parking lot is full ');
+            }
         } catch (e) {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
         }
@@ -146,6 +151,7 @@ class ParkingService extends BaseParkingService {
             throw new Exception(errorMessage.PROCESSING_ERROR, e);
         }
     }
+
 }
 
 module.exports = ParkingService;
